@@ -1,0 +1,114 @@
+<h2>Template:Básicos</h2>
+<hr>
+<div class="row">
+    <div class="col">
+       <!--Formulario-->
+        <form (ngSubmit)="save()"  
+               autocomplete="off"
+               #myform="ngForm">
+
+            <!--//!----Producto:Usa directiva personalizad blanks, controla el min sea 3 caracteres SIN CONTAR espacios en blanco----------->
+            <div class="mb-3 row">
+
+                <label class="col-sm-3 col-form-label">
+                    Producto
+                </label>
+                 <div class="col-sm-9 form-group">
+                    <input type="text"
+                           name="producto"
+                           [ngModel]="initForm.producto"
+                           class="form-control"
+                           placeholder="Nombre del Producto"
+                           required
+                           blanks
+                           >
+                    <span class="form-text text-danger"
+                           *ngIf="formError('producto')">
+                        Debe de ser mínimo 3 letras.
+                    </span>
+                 </div>
+            </div>
+
+             <!---------Campo Precio----------->
+             <div class="mb-3 row">
+
+                <label class="col-sm-3 col-form-label">
+                    Precio
+                </label>
+                 <div class="col-sm-9 form-group">
+                    <input type="number"
+                           name="precio"
+                           [ngModel]="initForm.precio"
+                           class="form-control"
+                           placeholder="Precio del Producto"
+                           required
+                           min="0">
+                    <span class="form-text text-danger"
+                          *ngIf="formError('precio')">
+                        Precio Mínimo 0.
+                    </span>
+                 </div>
+            </div>
+    
+               <!--//!----Campo Existencias: Usando Directiva personalizada,No hace falta, pero práctico directivas----------->
+               <div class="mb-3 row">
+
+                <label class="col-sm-3 col-form-label">
+                 Existencias
+                </label>
+
+                 <div class="col-sm-9 form-group">
+                    <!--directiva 'customMin' y pasando [minimo] con infor a la directicva-->
+                 <input type="number"
+                         name="existencias"
+                         [ngModel]="initForm.existencias"
+                         customMin
+                         [minimo]="0"
+                         class="form-control"
+                         placeholder="Existencias del Producto"
+                         required
+                         >
+                 <span class="form-text text-danger"
+                       *ngIf="formError('existencias')"
+                        >
+                        Mínimo de existencias es 0.
+                 </span>
+                 </div>
+             </div>
+
+            <!--Boton submit-->
+           <div class="row">
+             <div class="col">
+                <button type="submit"
+                        [disabled]="myform.invalid"
+                        class="float-end btn btn-primary">
+                        Enviar
+                </button>
+             </div>
+           </div>
+
+        </form>
+
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col">
+
+        <span>Valid</span>
+        <pre>{{myform.valid}}</pre>
+
+        <span>Value</span>
+        <pre>{{ myform.value |json }}</pre>
+
+        <span>Errores campo Producto</span>
+        <pre *ngIf="myform.controls['producto']?.errors">{{ myform.controls['producto'].errors |json}}</pre> <br>
+        
+        <span>Errores campo Precio</span>
+        <pre *ngIf="myform.controls['precio']?.errors">{{ myform.controls['precio'].errors |json}}</pre><br>
+        <span>CustomDirective</span>
+        <pre *ngIf="myform.controls['existencias']?.errors">{{myform.controls['existencias'].errors |json}}</pre>
+    
+    </div>
+</div>

@@ -1,0 +1,115 @@
+<h2>Template: <small>Dinámicos</small></h2>
+<!--!NO quiero comportamiento del (ngSubmit),al clicker el boton type='submit' o 'button' o Hacer enter en cualquier input LLAMA FUNCION-->
+<!-- Lo quito y separo metodos, Sino se envian a ala vez-->
+<form 
+        #myform="ngForm" 
+        autocomplete="off">
+
+        <!---------campo Producto------------->
+       <div class="mb-3 row">
+
+        <label class="col-sm-3 col-form-label">
+            Producto
+        </label>
+         <div class="col-sm-9 form-group">
+            <input type="text"
+                   name="producto"
+                  [(ngModel)]="persona.nombre"
+                   class="form-control"
+                   placeholder="Nombre del Producto"
+                   required
+                   >
+            <span class="form-text text-danger"
+                   *ngIf="myform.controls['producto']?.touched && myform.controls['producto'].errors"
+                  >
+                Esta campo es obligatorio.
+            </span>
+         </div>
+    </div>
+
+
+     <!---------Nombre------------>
+     <div class="mb-3 row">
+
+        <label class="col-sm-3 col-form-label">
+          Agregar
+        </label>
+         <div class="col-sm-9">
+
+             <div class=" input-group">
+                <input type="text"
+                       class="form-control"
+                       name="new_favorito"
+                       [(ngModel)]="new_favorito"
+                       (keyup.enter)="agregar()"
+                       placeholder="Agregar Favorito"
+               >
+
+                <button class="btn btn-outline-primary"
+                        (click)="agregar()"
+                        >
+                    Agregar Favorito
+                </button>
+
+             </div>
+             <span class="form-text text-danger"
+                *ngIf="myform.controls['new_favorito']?.touched && new_favorito.trim().length <=2"
+                >
+               Minimo 3 caracteres.
+             </span>
+           
+         </div>
+     </div> 
+
+       <!---------Lista de juegos favoritos------------->
+       <div class="mb-3 row">
+
+        <label class="col-sm-3 col-form-label">
+            Favoritos
+        </label>
+         <div class="col-sm-9 form-group">
+            <div class="input-group mb-1"
+                 *ngFor="let f of persona.favoritos; let i = index">
+
+                <input type="text"
+                    name="favorito_{{ i }}"
+                    [(ngModel)]="f.nombre"
+                    class="form-control"
+                    required
+                    blanks
+               > 
+               
+               <button class="btn btn-outline-danger"
+                       (click)="delete(i)">
+                Eliminar
+               </button>
+              
+            </div>
+         
+           
+         </div>
+    </div>
+
+
+     <!--Boton guardar datos del formulario-->
+     <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    type="button"
+                    (click)="save()"
+                    [disabled]="myform.invalid"
+             >Guardar</button>
+        </div>
+     </div>
+</form>
+
+<div class="row">
+    <div class="col">
+        <h5>Valid</h5>
+        <pre>{{myform.valid}}</pre>
+        <h5>Valores del formulario</h5>
+        <pre>{{myform.value|json}}</pre> 
+        <h5>Valores Persona Objeto</h5>
+        <pre>{{persona|json}}</pre> <br>
+    </div>
+</div>

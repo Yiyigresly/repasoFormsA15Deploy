@@ -1,0 +1,121 @@
+<h2>Template:Switches</h2>
+
+<hr>
+
+<form 
+      (ngSubmit)="save()"
+       autocomplete="off"
+       #myform="ngForm">
+   
+      <!--//! RADIO para el campo sexo-->
+      <div class="row mb-3">
+
+        <label class="col-sm-3 col-form-label">
+            Género
+        </label>
+         <div class="col-sm-9">
+
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="radio" 
+                       name="sexo" 
+                       [(ngModel)]="persona.genero"
+                       value="M"
+                       id="male"
+                       required>
+                <label class="form-check-label" 
+                       for="male">
+                  Masculino
+                </label>
+
+              </div>
+              <div class="form-check">
+
+                <input class="form-check-input" 
+                       type="radio" 
+                       name="sexo" 
+                       [(ngModel)]="persona.genero"
+                       value="F"
+                       id="female"
+                       required>
+                <label class="form-check-label" 
+                       for="female">
+                  Femenino
+                </label>
+
+              </div>
+
+         </div>
+      </div>
+
+
+     <!-- //! SWITCH para ls notificaciones-->
+      <div class="row mb-3">
+
+        <label class="col-sm-3 col-form-label">
+            Notificaciones
+        </label>
+        <div  class="col-sm-9 mt-2">
+            <div class="form-check form-switch">
+
+                <input class="form-check-input" 
+                       type="checkbox" 
+                       name="notificaciones"
+                       [(ngModel)]="persona.notificaciones"
+                       role="switch" 
+                       id="notificacion">
+                <label class="form-check-label" 
+                       for="notificacion">
+                       Sí
+                 </label>
+
+              </div>
+        </div>
+        
+    </div>
+
+    
+     <!-- //! CHECKS para las notificaciones-->
+
+     <div class="row mb-3">
+
+        <label class="col-sm-3 col-form-label">
+
+        </label>
+        <div  class="col-sm-9">
+
+            <div class="form-check">
+                <input class="form-check-input"
+                       type="checkbox" 
+                       name="terminosYCondinciones"
+                       [(ngModel)]="terminosYCondinciones"
+                       id="condiciones"
+                       required>
+                <label class="form-check-label" for="condiciones">
+                  Términos y Condiciones
+                </label>
+              </div>
+
+        </div>
+     </div>  
+     
+     <div class="row">
+      <div class="col">
+        <button class="btn btn-primary float-end"
+                [disabled]="myform.invalid"
+                type="submit">
+          Guardar
+        </button>
+      </div>
+     </div>
+     
+</form>
+
+<h4>Valid form</h4>
+<pre>{{ myform.valid  }}</pre>
+
+<h4>Valor del form</h4>
+<pre>{{ myform.value | json  }}</pre>
+
+<h4>Persona Objeto</h4>
+<pre>{{ persona | json  }}</pre>
